@@ -40,7 +40,11 @@ int main()
                 g.showWeightMatrix();
                 break;
             case 3:
-                g.dynamicProgrammingAlgorithm();
+                cout << "Odległości między miastami:" << endl << endl;
+                g.showWeightMatrix();
+                cout << endl;
+                g.prepareForDynamicProggraming();
+                cout << "\nMinimalna długość drogi: " << g.dynamicProggraming(0, 1) << endl;
                 break;
             case 4:
                 cout << "KONIEC TESTÓW" << endl; 

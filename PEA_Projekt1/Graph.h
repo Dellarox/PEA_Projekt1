@@ -16,14 +16,13 @@ using namespace std;
 class Graph {
 public:
 	vector<vector<int>> weightMatrix, memory;
-	int numberOfCities;
-	int finalCost = 0, visitedCities;
+	int numberOfCities = 0, visitedCities = 0;
 
 	bool fileReadLine(ifstream& file, int tab[], int size);
 
 	void showWeightMatrix();
 
-	void dynamicProgrammingAlgorithm();
+	void prepareForDynamicProggraming();
 
 	int dynamicProggraming(int cityWeChecking, int visitedCities);
 

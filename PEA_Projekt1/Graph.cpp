@@ -29,7 +29,7 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 		{
 			numberOfCities = tabNumberOfCities[0];
 
-			cout << "ilosc miast:" << numberOfCities << endl << endl;
+			cout << endl << "ilosc miast:" << numberOfCities << endl << endl;
 
 			weightMatrix.resize(numberOfCities, vector<int>(numberOfCities, 0));
 
@@ -39,7 +39,7 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 				}
 			}
 
-			cout << "Struktura w postaci macierzy wag:" << endl;
+			cout << endl << "Struktura w postaci macierzy wag:" << endl;
 			showWeightMatrix();
 			return true;
 		}
@@ -85,23 +85,17 @@ void Graph::showWeightMatrix() {
 	cout << endl;
 }
 
-void Graph::dynamicProgrammingAlgorithm() {
-	cout << "Odleg³oœci miêdzy miastami:" << endl << endl;
-	showWeightMatrix();
-	cout << endl;
-	cout << "\nMinimalna d³ugoœæ drogi: " << dynamicProggraming(0, 1) << endl;
+void Graph::prepareForDynamicProggraming() {
+	visitedCities = (1 << numberOfCities) - 1;
+	memory.resize((1 << numberOfCities), vector<int>(numberOfCities));
 }
 
 int Graph::dynamicProggraming(int cityWeChecking, int visitedCitiesLocal) {
-	visitedCities = (1 << numberOfCities) - 1;
-
-	memory.resize((1 << numberOfCities), vector<int>(numberOfCities));
-
 	if (visitedCitiesLocal == visitedCities)
 		return weightMatrix[cityWeChecking][0];
 
 	if (memory[visitedCitiesLocal][cityWeChecking] != 0)
-		memory[visitedCitiesLocal][cityWeChecking];
+		return memory[visitedCitiesLocal][cityWeChecking];
 
 	int minimum = INT_MAX;
 
