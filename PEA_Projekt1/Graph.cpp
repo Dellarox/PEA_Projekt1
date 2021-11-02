@@ -20,7 +20,6 @@ bool Graph::fileReadLine(ifstream& file, int tab[], int size) {
 
 bool Graph::fileReadGraph(string fileName, bool isDirected) {
 	ifstream file;
-	int x;
 	int tabNumberOfCities[1];
 	file.open(fileName.c_str());
 
