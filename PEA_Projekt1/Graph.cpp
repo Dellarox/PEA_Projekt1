@@ -54,17 +54,32 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 	return false;
 }
 
+void showRow(vector<int> weightMatrix) { // funkcja pomocnicza w wyœwietlaniu macierzy
+	for (int i = 0; i < (int)weightMatrix.size(); i++) {
+		cout << weightMatrix[i];
+		if (weightMatrix[i] > 9) {
+			if (weightMatrix[i] < 100) {
+				cout << "  ";
+			}
+			else {
+				cout << " ";
+			}
+		}
+		else {
+			cout << "   ";
+		}
+	}
+}
+
 void Graph::showWeightMatrix() {
-	cout << "   ";
+	cout << "    ";
 	for (int i = 0; i < numberOfCities; i++)
 		cout << i + 1 << "___";
 	cout << endl;
 
 	for (int i = 0; i < numberOfCities; i++) {
 		cout << i + 1 << "  |";
-		for (int j = 0; j < numberOfCities; j++) {
-			cout << weightMatrix[i][j] << "  ";
-		}
+		showRow(weightMatrix[i]);
 		cout << endl;
 	}
 	cout << endl;
@@ -74,17 +89,33 @@ void Graph::dynamicProgrammingAlgorithm() {
 	cout << "Odleg³oœci miêdzy miastami:" << endl << endl;
 	showWeightMatrix();
 	cout << endl;
-	//cout << "\nMinimalna d³ugoœæ drogi: " << dynamicProggraming() << endl;
+	cout << "\nMinimalna d³ugoœæ drogi: " << dynamicProggraming(0, 1) << endl;
 }
 
 int Graph::dynamicProggraming(int cityWeChecking, int visitedCitiesLocal) {
 	visitedCities = (1 << numberOfCities) - 1;
 
-	memory.resize(1 << numberOfCities), vector<int>(numberOfCities);
+	memory.resize((1 << numberOfCities), vector<int>(numberOfCities));
 
 	if (visitedCitiesLocal == visitedCities)
 		return weightMatrix[cityWeChecking][0];
 
 	if (memory[visitedCitiesLocal][cityWeChecking] != 0)
 		memory[visitedCitiesLocal][cityWeChecking];
+
+	int minimum = INT_MAX;
+
+	for (int i = 0; i < numberOfCities; i++) {
+		if (i == cityWeChecking)
+			continue;
+
+		if ((visitedCitiesLocal & (1 << i)) == 0){
+			int temp = weightMatrix[cityWeChecking][i] + dynamicProggraming(i, visitedCitiesLocal | (1 << i));
+			if (temp < minimum)
+				minimum = temp;
+		}
+	}
+
+	memory[visitedCitiesLocal][cityWeChecking] = minimum;
+	return minimum;
 }
