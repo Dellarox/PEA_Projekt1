@@ -15,17 +15,17 @@ using namespace std;
 
 class Graph {
 public:
-	vector<vector<int>> weightMatrix;
+	vector<vector<int>> weightMatrix, memory;
 	int numberOfCities;
-	int cost = 0;
+	int finalCost = 0, visitedCities;
 
 	bool fileReadLine(ifstream& file, int tab[], int size);
-
-	void removeGraph();
 
 	void showWeightMatrix();
 
 	void dynamicProgrammingAlgorithm();
+
+	int dynamicProggraming(int cityWeChecking, int visitedCities);
 
 	bool fileReadGraph(string fileName, bool isDirected);
 };

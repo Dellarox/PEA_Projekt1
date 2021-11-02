@@ -27,8 +27,6 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 	{
 		if (fileReadLine(file, tabNumberOfCities, 1))
 		{
-			removeGraph(); // czyszczenie pamieci z poprzedniego grafu
-
 			numberOfCities = tabNumberOfCities[0];
 
 			cout << "ilosc miast:" << numberOfCities << endl << endl;
@@ -56,11 +54,6 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 	return false;
 }
 
-void Graph::removeGraph() {
-	weightMatrix.clear();
-	weightMatrix.resize(0);
-}
-
 void Graph::showWeightMatrix() {
 	cout << "   ";
 	for (int i = 0; i < numberOfCities; i++)
@@ -81,5 +74,17 @@ void Graph::dynamicProgrammingAlgorithm() {
 	cout << "Odleg³oœci miêdzy miastami:" << endl << endl;
 	showWeightMatrix();
 	cout << endl;
-	cout << "\nMinimalna d³ugoœæ drogi: " << endl;
+	//cout << "\nMinimalna d³ugoœæ drogi: " << dynamicProggraming() << endl;
+}
+
+int Graph::dynamicProggraming(int cityWeChecking, int visitedCitiesLocal) {
+	visitedCities = (1 << numberOfCities) - 1;
+
+	memory.resize(1 << numberOfCities), vector<int>(numberOfCities);
+
+	if (visitedCitiesLocal == visitedCities)
+		return weightMatrix[cityWeChecking][0];
+
+	if (memory[visitedCitiesLocal][cityWeChecking] != 0)
+		memory[visitedCitiesLocal][cityWeChecking];
 }
