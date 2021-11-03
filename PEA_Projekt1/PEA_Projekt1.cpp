@@ -18,6 +18,7 @@ int main()
     bool checker;
     Graph g;
     TimeTests tt;
+    vector<int> path;
 
     do {
         system("cls");
@@ -33,7 +34,7 @@ int main()
             case 1:
                 cout << "Podaj nazwę pliku: " << endl;
                 //cin >> fileName;
-                fileName = "20_miast.txt";
+                fileName = "zad1.txt";
                 checker = g.fileReadGraph(fileName, false);
 
                 if (!checker) {
@@ -52,20 +53,21 @@ int main()
 
                 start = tt.read_QPC();
                 g.prepareForDynamicProggraming();
-                cout << "\nMinimalna długość drogi: " << g.dynamicProggraming(0, 1) << endl;
+                cout << "\nMinimalna długość drogi: " << g.dynamicProggraming(0, 1, path) << endl;
                 elapsed = tt.read_QPC() - start;
-                cout << "Czas testów dla " << g.numberOfCities << " miast w [s]: " << (1.0 * elapsed) / frequency << "." << endl;
-
-                tt.timeTestsForDynamicProggraming(g, "20_miast.txt");
+                for (int i = 0; i < g.numberOfCities; i++)
+                    cout << path[i];
+                cout << endl << "Czas testów dla " << g.numberOfCities << " miast w [s]: " << (1.0 * elapsed) / frequency << "." << endl;
                 break;
             case 4:
-                //tt.timeTestsForDynamicProggraming(g, "18_miast.txt");
-                //tt.timeTestsForDynamicProggraming(g, "20_miast.txt");
-                //tt.timeTestsForDynamicProggraming(g, "22_miast.txt");
-                //tt.timeTestsForDynamicProggraming(g, "23_miast.txt");
-                //tt.timeTestsForDynamicProggraming(g, "24_miast.txt");
-                //tt.timeTestsForDynamicProggraming(g, "25_miast.txt");
-                //tt.timeTestsForDynamicProggraming(g, "26_miast.txt");
+
+                /*tt.timeTestsForDynamicProggraming(g, "18_miast.txt");
+                tt.timeTestsForDynamicProggraming(g, "19_miast.txt");
+                tt.timeTestsForDynamicProggraming(g, "20_miast.txt");
+                tt.timeTestsForDynamicProggraming(g, "21_miast.txt");
+                tt.timeTestsForDynamicProggraming(g, "22_miast.txt");
+                tt.timeTestsForDynamicProggraming(g, "23_miast.txt");
+                tt.timeTestsForDynamicProggraming(g, "24_miast.txt");*/
                 cout << "KONIEC TESTÓW" << endl; 
                 break;
         }

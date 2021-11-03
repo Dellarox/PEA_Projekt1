@@ -17,6 +17,7 @@ using namespace std;
 class Graph {
 public:
 	vector<vector<int>> weightMatrix, memory;
+	vector<int> path;
 	int numberOfCities = 0, visitedCities = 0;
 
 	bool fileReadLine(ifstream& file, int tab[], int size);
@@ -25,7 +26,7 @@ public:
 
 	void prepareForDynamicProggraming();
 
-	int dynamicProggraming(int cityWeChecking, int visitedCities);
+	int dynamicProggraming(int cityWeChecking, int visitedCities, vector<int> &path);
 
 	bool fileReadGraph(string fileName, bool isTest);
 };

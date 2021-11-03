@@ -11,5 +11,5 @@ public:
 
 	long long int read_QPC();
 
-	void timeTestsForDynamicProggraming(Graph g, string fileName);
+	void timeTestsForDynamicProggraming(Graph g, string fileName, vector<int>& path);
 };

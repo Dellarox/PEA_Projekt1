@@ -6,7 +6,7 @@ long long int TimeTests::read_QPC() {
 	return((long long int)count.QuadPart);
 }
 
-void TimeTests::timeTestsForDynamicProggraming(Graph g, string fileName) {
+void TimeTests::timeTestsForDynamicProggraming(Graph g, string fileName, vector<int> &path) {
 	srand(time(NULL));
 	long long int frequency, start, elapsed;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
@@ -23,10 +23,10 @@ void TimeTests::timeTestsForDynamicProggraming(Graph g, string fileName) {
 	start = read_QPC();
 	for (int i = 0; i < 100; i++) {
 		g.prepareForDynamicProggraming();
-		g.dynamicProggraming(0, 1);
+		g.dynamicProggraming(0, 1, path);
 		g.memory.clear();
 	}
 	elapsed = read_QPC() - start;
 	timeOfTest = (1.0 * elapsed) / frequency;
-	cout << "Czas testów dla " << g.numberOfCities << " miast w [s]: " << timeOfTest << "." << endl;
+	cout << "Uœredniony czas testów dla " << g.numberOfCities << " miast w [s]: " << timeOfTest/100 << "." << endl;
 }
