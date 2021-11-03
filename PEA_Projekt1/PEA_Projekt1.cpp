@@ -1,10 +1,15 @@
 ﻿#include <iostream>
 #include "Graph.h"
+#include "TimeTests.h"
 
 using namespace std;
 
 int main()
 {
+    srand(time(NULL));
+    long long int frequency, start, elapsed;
+    QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
+
     setlocale(LC_ALL, "polish");
 
     int menuOperation;
@@ -12,7 +17,7 @@ int main()
     string fileName;
     bool checker;
     Graph g;
-
+    TimeTests tt;
 
     do {
         system("cls");
@@ -27,7 +32,8 @@ int main()
         {
             case 1:
                 cout << "Podaj nazwę pliku: " << endl;
-                cin >> fileName;
+                //cin >> fileName;
+                fileName = "20_miast.txt";
                 checker = g.fileReadGraph(fileName, false);
 
                 if (!checker) {
@@ -43,10 +49,23 @@ int main()
                 cout << "Odległości między miastami:" << endl << endl;
                 g.showWeightMatrix();
                 cout << endl;
+
+                start = tt.read_QPC();
                 g.prepareForDynamicProggraming();
                 cout << "\nMinimalna długość drogi: " << g.dynamicProggraming(0, 1) << endl;
+                elapsed = tt.read_QPC() - start;
+                cout << "Czas testów dla " << g.numberOfCities << " miast w [s]: " << (1.0 * elapsed) / frequency << "." << endl;
+
+                tt.timeTestsForDynamicProggraming(g, "20_miast.txt");
                 break;
             case 4:
+                //tt.timeTestsForDynamicProggraming(g, "18_miast.txt");
+                //tt.timeTestsForDynamicProggraming(g, "20_miast.txt");
+                //tt.timeTestsForDynamicProggraming(g, "22_miast.txt");
+                //tt.timeTestsForDynamicProggraming(g, "23_miast.txt");
+                //tt.timeTestsForDynamicProggraming(g, "24_miast.txt");
+                //tt.timeTestsForDynamicProggraming(g, "25_miast.txt");
+                //tt.timeTestsForDynamicProggraming(g, "26_miast.txt");
                 cout << "KONIEC TESTÓW" << endl; 
                 break;
         }

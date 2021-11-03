@@ -18,7 +18,7 @@ bool Graph::fileReadLine(ifstream& file, int tab[], int size) {
 	return(true);
 }
 
-bool Graph::fileReadGraph(string fileName, bool isDirected) {
+bool Graph::fileReadGraph(string fileName, bool isTest) {
 	ifstream file;
 	int tabNumberOfCities[1];
 	file.open(fileName.c_str());
@@ -29,7 +29,8 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 		{
 			numberOfCities = tabNumberOfCities[0];
 
-			cout << endl << "ilosc miast:" << numberOfCities << endl << endl;
+			if(!isTest)
+				cout << endl << "ilosc miast:" << numberOfCities << endl << endl;
 
 			weightMatrix.resize(numberOfCities, vector<int>(numberOfCities, 0));
 
@@ -39,8 +40,10 @@ bool Graph::fileReadGraph(string fileName, bool isDirected) {
 				}
 			}
 
-			cout << endl << "Struktura w postaci macierzy wag:" << endl;
-			showWeightMatrix();
+			if (!isTest) {
+				cout << endl << "Struktura w postaci macierzy wag:" << endl;
+				showWeightMatrix();
+			}
 			return true;
 		}
 		else
@@ -91,8 +94,10 @@ void Graph::prepareForDynamicProggraming() {
 }
 
 int Graph::dynamicProggraming(int cityWeChecking, int visitedCitiesLocal) {
-	if (visitedCitiesLocal == visitedCities)
+	if (visitedCitiesLocal == visitedCities) {
 		return weightMatrix[cityWeChecking][0];
+	}
+		
 
 	if (memory[visitedCitiesLocal][cityWeChecking] != 0)
 		return memory[visitedCitiesLocal][cityWeChecking];

@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <limits>
@@ -26,5 +27,5 @@ public:
 
 	int dynamicProggraming(int cityWeChecking, int visitedCities);
 
-	bool fileReadGraph(string fileName, bool isDirected);
+	bool fileReadGraph(string fileName, bool isTest);
 };
