@@ -69,8 +69,8 @@ void doBF() {
 }
 
 void tests() {
-    cout << "Programowanie dynamiczne:" << endl;
-    /*tt.timeTestsForDynamicProggraming(gtt, "18_miast.txt", 18, weightMatrixGlobal);
+    /*cout << "Programowanie dynamiczne:" << endl;
+    tt.timeTestsForDynamicProggraming(gtt, "18_miast.txt", 18, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "19_miast.txt", 19, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "20_miast.txt", 20, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "21_miast.txt", 21, weightMatrixGlobal);
@@ -78,13 +78,12 @@ void tests() {
     tt.timeTestsForDynamicProggraming(gtt, "23_miast.txt", 23, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "24_miast.txt", 24, weightMatrixGlobal);*/
     cout << "Brute force:" << endl;
-    tt.timeTestsForBruteForce(gtt, "zad.txt", 10, weightMatrixGlobal);
-    /*tt.timeTestsForBruteForce(gtt, "19_miast.txt", 19, weightMatrixGlobal);
-    tt.timeTestsForBruteForce(gtt, "20_miast.txt", 20, weightMatrixGlobal);
-    tt.timeTestsForBruteForce(gtt, "21_miast.txt", 21, weightMatrixGlobal);
-    tt.timeTestsForBruteForce(gtt, "22_miast.txt", 22, weightMatrixGlobal);
-    tt.timeTestsForBruteForce(gtt, "23_miast.txt", 23, weightMatrixGlobal);
-    tt.timeTestsForBruteForce(gtt, "24_miast.txt", 24, weightMatrixGlobal);*/
+    tt.timeTestsForBruteForce(gtt, "8_miast.txt", 8, weightMatrixGlobal, 100);
+    tt.timeTestsForBruteForce(gtt, "9_miast.txt", 9, weightMatrixGlobal, 100);
+    tt.timeTestsForBruteForce(gtt, "10_miast.txt", 10, weightMatrixGlobal, 100);
+    tt.timeTestsForBruteForce(gtt, "11_miast.txt", 11, weightMatrixGlobal, 100);
+    tt.timeTestsForBruteForce(gtt, "12_miast.txt", 12, weightMatrixGlobal, 100);
+    tt.timeTestsForBruteForce(gtt, "13_miast.txt", 13, weightMatrixGlobal, 30);
     cout << "KONIEC TESTÓW" << endl;
 }
 
@@ -115,8 +114,9 @@ int main()
         switch (menuOperation)
         {
             case 1:
-                cout << "Podaj nazwę pliku: " << endl;
+                cout << "Podaj nazwę pliku (plik txt, bez rozszerzenia): " << endl;
                 cin >> fileName;
+                fileName.append(".txt");
                 checker = g.fileReadGraph(fileName, false, numberOfCitiesGlobal, weightMatrixGlobal);
                 break;
             case 2:

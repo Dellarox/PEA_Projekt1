@@ -22,10 +22,10 @@ void TimeTests::timeTestsForDynamicProggraming(Graph g, string fileName, int num
 	}
 	elapsed = read_QPC() - start;
 	timeOfTest = (1.0 * elapsed) / frequency;
-	cout << "Uœredniony czas testów dla " << numberOfCities << " miast w [s]: " << timeOfTest << "." << endl;
+	cout << "Uœredniony czas testów dla " << numberOfCities << " miast w [s]: " << timeOfTest/100 << "." << endl;
 }
 
-void TimeTests::timeTestsForBruteForce(Graph g, string fileName, int numberOfCities, vector<vector<int>> weightMatrix) {
+void TimeTests::timeTestsForBruteForce(Graph g, string fileName, int numberOfCities, vector<vector<int>> weightMatrix, int howMuchAttempts) {
 	srand(time(NULL));
 	long long int frequency, start, elapsed;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);
@@ -36,10 +36,18 @@ void TimeTests::timeTestsForBruteForce(Graph g, string fileName, int numberOfCit
 
 	timeOfTest = 0;
 	start = read_QPC();
-	for (int i = 0; i < 10; i++) {
-		g.bruteForceCountMinimalCostAndBestPath(weightMatrix, result, path);
+	if (howMuchAttempts == 100) 
+		for (int i = 0; i < 100; i++)
+			g.bruteForceCountMinimalCostAndBestPath(weightMatrix, result, path);
+
+	if (howMuchAttempts == 30) {
+		for (int i = 0; i < 30; i++)
+			g.bruteForceCountMinimalCostAndBestPath(weightMatrix, result, path);
 	}
 	elapsed = read_QPC() - start;
 	timeOfTest = (1.0 * elapsed) / frequency;
-	cout << "Uœredniony czas testów dla " << numberOfCities << " miast w [s]: " << timeOfTest << "." << endl;
-}
+	if (howMuchAttempts == 100)
+		cout << "Uœredniony czas testów dla " << numberOfCities << " miast w [s]: " << timeOfTest/100 << "." << endl;
+	if (howMuchAttempts == 30)
+		cout << "Uœredniony czas testów dla " << numberOfCities << " miast w [s]: " << timeOfTest/30 << "." << endl;
+}	
