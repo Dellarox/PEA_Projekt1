@@ -125,7 +125,7 @@ void Graph::bruteForceCountMinimalCostAndBestPath(vector<vector<int>> weightMatr
 
 	help.resize(weightMatrix.size());
 
-	for (i = 0; i < weightMatrix.size(); i++)
+	for (i = 0; i < weightMatrix.size(); i++) // zape³nienie helpa indeksami wierzcho³ków
 		help[i] = i;
 
 	i = 0;
@@ -134,16 +134,16 @@ void Graph::bruteForceCountMinimalCostAndBestPath(vector<vector<int>> weightMatr
 
 	do {
 		pathValue = 0;
-		for (i = 0; i < weightMatrix.size() - 1; i++) // w tej pêtli obliczamy drogê
+		for (i = 0; i < weightMatrix.size() - 1; i++) // w tej pêtli obliczamy drogê od indeksu 0 do indeksu ostatniego z vectora help
 			pathValue += weightMatrix[help[i]][help[i + 1]];
 
-		pathValue += weightMatrix[help[i]][help[0]];
+		pathValue += weightMatrix[help[i]][help[0]]; // tutaj ³¹czy siê wartoœæ od wierzcho³ka ostatniego do pocz¹tkowego, aby utworzyæ cykl
 
 		if (pathValue < minPath) { // a w tej pêtli porównujemy wynik
 			minPath = pathValue; // przekazujemy wartoœæ najkrótszej œcie¿ki 
 			bestPathLocal = help; // przekazujemy drogê pokonan¹
 		}
-	} while (next_permutation(help.begin(), help.end())); // pêtlê wykonujemy dopóki nie wykorzystany wszystkich mo¿liwych permutacji przejœæ - to co ma robiæ brute force
+	} while (next_permutation(help.begin(), help.end())); // pêtlê wykonujemy dopóki nie wykorzystany i wykonamy wszystkich mo¿liwych permutacji przejœæ - to co ma robiæ brute force
 
 	result = minPath;
 	path = bestPathLocal; // przypisanie znalezionych wartoœci do zmiennych przekazanych przez funckjê
