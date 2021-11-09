@@ -1,8 +1,72 @@
 ﻿#include <iostream>
 #include "Graph.h"
 #include "TimeTests.h"
+#include "FileReader.h"
 
 using namespace std;
+
+vector<vector<int>> weightMatrixGlobal;
+int numberOfCitiesGlobal;
+
+void showRow(vector<int> weightMatrix) { // funkcja pomocnicza w wyświetlaniu macierzy
+    for (int i = 0; i < (int)weightMatrix.size(); i++) {
+        cout << weightMatrix[i];
+        if (weightMatrix[i] > 9) {
+            if (weightMatrix[i] < 100) {
+                cout << "  ";
+            }
+            else {
+                cout << " ";
+            }
+        }
+        else {
+            cout << "   ";
+        }
+    }
+}
+
+void showWeightMatrix(int numberOfCities, vector<vector<int>> weightMatrix) {
+
+    if (numberOfCities == 0) {
+        cout << "Nie wczytano struktury lub liczba miast wynosi 0!" << endl;
+    }
+    else {
+        for (int i = 0; i < numberOfCities; i++) {
+            showRow(weightMatrix[i]);
+            cout << endl;
+        }
+        cout << endl;
+    }
+}
+
+void doDP() {
+    Graph g;
+    cout << "Odległości między miastami:" << endl << endl;
+    showWeightMatrix(numberOfCitiesGlobal, weightMatrixGlobal);
+    cout << endl;
+    g.prepareForDynamicProggramingCountMinimalCost(numberOfCitiesGlobal, weightMatrixGlobal);
+    g.prepareForDynamicProggramingFindBestPath(numberOfCitiesGlobal);
+    cout << "\nMinimalna długość drogi: " << g.dynamicProggramingCountMinimalCost(1, 0) << endl;
+    cout << "\nŚcieżka, która jest obierana: ";
+    g.dynamicProggramingFindBestPath(0, 0);
+    cout << "0" << endl;
+}
+
+void doBF() {
+    Graph g;
+    cout << "Odległości między miastami:" << endl << endl;
+    showWeightMatrix(numberOfCitiesGlobal, weightMatrixGlobal);
+    int result;
+    vector<int> path;
+    g.bruteForceCountMinimalCostAndBestPath(weightMatrixGlobal, result, path);
+    cout << "\nMinimalna długość drogi: " << result << endl;
+    cout << "\nŚcieżka, która jest obierana: ";
+    for (int i = 0; i < path.size(); i++) {
+        cout << path[i] << "--->";
+    }
+    cout << "0" << endl;
+}
+
 
 int main()
 {
@@ -16,9 +80,9 @@ int main()
     char menuContinue;
     string fileName;
     bool checker;
-    Graph g;
+    Graph gtt;
     TimeTests tt;
-    vector<int> path;
+    FileReader fr;
 
     do {
         system("cls");
@@ -26,48 +90,36 @@ int main()
         cout << "1. Wczytaj strukturę z pliku i ją pokaż." << endl;
         cout << "2. Pokaż wczytaną strukturę." << endl;
         cout << "3. Rozwiąż problem komiwojażera na wczytanej strukturze  - programowanie dynamiczne." << endl;
-        cout << "4. Testy. " << endl;
+        cout << "4. Rozwiąż problem komiwojażera na wczytanej strukturze  - programowanie dynamiczne." << endl;
+        cout << "5. Testy. " << endl;
         cin >> menuOperation;
 
         switch (menuOperation)
         {
             case 1:
                 cout << "Podaj nazwę pliku: " << endl;
-                //cin >> fileName;
-                fileName = "zad1.txt";
-                checker = g.fileReadGraph(fileName, false);
-
-                if (!checker) {
-                    cout << "Nie ma takiego pliku!" << endl;
-                    system("pause");
-                    return 0;
-                }
+                cin >> fileName;
+                checker = fr.fileReadGraph(fileName, false, numberOfCitiesGlobal, weightMatrixGlobal);
                 break;
             case 2:
-                g.showWeightMatrix();
+                cout << "Odległości między miastami:" << endl << endl;
+                showWeightMatrix(numberOfCitiesGlobal, weightMatrixGlobal);
                 break;
             case 3:
-                cout << "Odległości między miastami:" << endl << endl;
-                g.showWeightMatrix();
-                cout << endl;
-
-                start = tt.read_QPC();
-                g.prepareForDynamicProggraming();
-                cout << "\nMinimalna długość drogi: " << g.dynamicProggraming(0, 1, path) << endl;
-                elapsed = tt.read_QPC() - start;
-                for (int i = 0; i < g.numberOfCities; i++)
-                    cout << path[i];
-                cout << endl << "Czas testów dla " << g.numberOfCities << " miast w [s]: " << (1.0 * elapsed) / frequency << "." << endl;
+                doDP();
                 break;
             case 4:
-
-                /*tt.timeTestsForDynamicProggraming(g, "18_miast.txt");
-                tt.timeTestsForDynamicProggraming(g, "19_miast.txt");
-                tt.timeTestsForDynamicProggraming(g, "20_miast.txt");
-                tt.timeTestsForDynamicProggraming(g, "21_miast.txt");
-                tt.timeTestsForDynamicProggraming(g, "22_miast.txt");
-                tt.timeTestsForDynamicProggraming(g, "23_miast.txt");
-                tt.timeTestsForDynamicProggraming(g, "24_miast.txt");*/
+                doBF();
+                cout << endl;
+                break;
+            case 5:
+                tt.timeTestsForDynamicProggraming(gtt, fr, "18_miast.txt", 18, weightMatrixGlobal);
+                tt.timeTestsForDynamicProggraming(gtt, fr, "19_miast.txt", 19, weightMatrixGlobal);
+                tt.timeTestsForDynamicProggraming(gtt, fr, "20_miast.txt", 20, weightMatrixGlobal);
+                tt.timeTestsForDynamicProggraming(gtt, fr, "21_miast.txt", 21, weightMatrixGlobal);
+                tt.timeTestsForDynamicProggraming(gtt, fr, "22_miast.txt", 22, weightMatrixGlobal);
+                tt.timeTestsForDynamicProggraming(gtt, fr, "23_miast.txt", 23, weightMatrixGlobal);
+                tt.timeTestsForDynamicProggraming(gtt, fr, "24_miast.txt", 24, weightMatrixGlobal);
                 cout << "KONIEC TESTÓW" << endl; 
                 break;
         }

@@ -16,17 +16,19 @@ using namespace std;
 
 class Graph {
 public:
-	vector<vector<int>> weightMatrix, memory;
-	vector<int> path;
-	int numberOfCities = 0, visitedCities = 0;
+	vector<vector<int>> memory, bestPath, weightMatrixHelp;
+	vector<int> actualPathWeHave;
+	int visitedCities = 0, helpForActualPath = 0, numberOfCitiesHelp;
 
-	bool fileReadLine(ifstream& file, int tab[], int size);
+	//void showWeightMatrix(int& numberOfCities, vector<vector<int>>& weightMatrix);
 
-	void showWeightMatrix();
+	void prepareForDynamicProggramingCountMinimalCost(int numberOfCities, vector<vector<int>>& weightMatrix);
 
-	void prepareForDynamicProggraming();
+	void prepareForDynamicProggramingFindBestPath(int numberOfCities);
 
-	int dynamicProggraming(int cityWeChecking, int visitedCities, vector<int> &path);
+	int dynamicProggramingCountMinimalCost(int visitedCities, int cityWeChecking);
 
-	bool fileReadGraph(string fileName, bool isTest);
+	void dynamicProggramingFindBestPath(int visitingCity, int startingCity);
+
+	void bruteForceCountMinimalCostAndBestPath(vector<vector<int>> weightMatrix, int& result, vector<int>& pathVar);
 };
