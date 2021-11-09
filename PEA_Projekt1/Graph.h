@@ -22,9 +22,13 @@ public:
 
 	//void showWeightMatrix(int& numberOfCities, vector<vector<int>>& weightMatrix);
 
-	void prepareForDynamicProggramingCountMinimalCost(int numberOfCities, vector<vector<int>>& weightMatrix);
+	bool fileReadLine(ifstream& file, int tab[], int size);
 
-	void prepareForDynamicProggramingFindBestPath(int numberOfCities);
+	bool fileReadGraph(string fileName, bool isTest, int& numberOfCities, vector<vector<int>>& weightMatrix);
+
+	void prepareForDynamicProggramingCountMinimalCost(int numberOfCities, vector<vector<int>> weightMatrix);
+
+	void prepareForDynamicProggramingFindBestPath();
 
 	int dynamicProggramingCountMinimalCost(int visitedCities, int cityWeChecking);
 

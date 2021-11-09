@@ -1,12 +1,13 @@
 ﻿#include <iostream>
 #include "Graph.h"
 #include "TimeTests.h"
-#include "FileReader.h"
 
 using namespace std;
 
 vector<vector<int>> weightMatrixGlobal;
 int numberOfCitiesGlobal;
+TimeTests tt;
+Graph gtt;
 
 void showRow(vector<int> weightMatrix) { // funkcja pomocnicza w wyświetlaniu macierzy
     for (int i = 0; i < (int)weightMatrix.size(); i++) {
@@ -45,7 +46,7 @@ void doDP() {
     showWeightMatrix(numberOfCitiesGlobal, weightMatrixGlobal);
     cout << endl;
     g.prepareForDynamicProggramingCountMinimalCost(numberOfCitiesGlobal, weightMatrixGlobal);
-    g.prepareForDynamicProggramingFindBestPath(numberOfCitiesGlobal);
+    g.prepareForDynamicProggramingFindBestPath();
     cout << "\nMinimalna długość drogi: " << g.dynamicProggramingCountMinimalCost(1, 0) << endl;
     cout << "\nŚcieżka, która jest obierana: ";
     g.dynamicProggramingFindBestPath(0, 0);
@@ -67,6 +68,25 @@ void doBF() {
     cout << "0" << endl;
 }
 
+void tests() {
+    cout << "Programowanie dynamiczne:" << endl;
+    /*tt.timeTestsForDynamicProggraming(gtt, "18_miast.txt", 18, weightMatrixGlobal);
+    tt.timeTestsForDynamicProggraming(gtt, "19_miast.txt", 19, weightMatrixGlobal);
+    tt.timeTestsForDynamicProggraming(gtt, "20_miast.txt", 20, weightMatrixGlobal);
+    tt.timeTestsForDynamicProggraming(gtt, "21_miast.txt", 21, weightMatrixGlobal);
+    tt.timeTestsForDynamicProggraming(gtt, "22_miast.txt", 22, weightMatrixGlobal);
+    tt.timeTestsForDynamicProggraming(gtt, "23_miast.txt", 23, weightMatrixGlobal);
+    tt.timeTestsForDynamicProggraming(gtt, "24_miast.txt", 24, weightMatrixGlobal);*/
+    cout << "Brute force:" << endl;
+    tt.timeTestsForBruteForce(gtt, "zad.txt", 10, weightMatrixGlobal);
+    /*tt.timeTestsForBruteForce(gtt, "19_miast.txt", 19, weightMatrixGlobal);
+    tt.timeTestsForBruteForce(gtt, "20_miast.txt", 20, weightMatrixGlobal);
+    tt.timeTestsForBruteForce(gtt, "21_miast.txt", 21, weightMatrixGlobal);
+    tt.timeTestsForBruteForce(gtt, "22_miast.txt", 22, weightMatrixGlobal);
+    tt.timeTestsForBruteForce(gtt, "23_miast.txt", 23, weightMatrixGlobal);
+    tt.timeTestsForBruteForce(gtt, "24_miast.txt", 24, weightMatrixGlobal);*/
+    cout << "KONIEC TESTÓW" << endl;
+}
 
 int main()
 {
@@ -80,9 +100,7 @@ int main()
     char menuContinue;
     string fileName;
     bool checker;
-    Graph gtt;
-    TimeTests tt;
-    FileReader fr;
+    Graph g;
 
     do {
         system("cls");
@@ -90,7 +108,7 @@ int main()
         cout << "1. Wczytaj strukturę z pliku i ją pokaż." << endl;
         cout << "2. Pokaż wczytaną strukturę." << endl;
         cout << "3. Rozwiąż problem komiwojażera na wczytanej strukturze  - programowanie dynamiczne." << endl;
-        cout << "4. Rozwiąż problem komiwojażera na wczytanej strukturze  - programowanie dynamiczne." << endl;
+        cout << "4. Rozwiąż problem komiwojażera na wczytanej strukturze  - brute force." << endl;
         cout << "5. Testy. " << endl;
         cin >> menuOperation;
 
@@ -99,7 +117,7 @@ int main()
             case 1:
                 cout << "Podaj nazwę pliku: " << endl;
                 cin >> fileName;
-                checker = fr.fileReadGraph(fileName, false, numberOfCitiesGlobal, weightMatrixGlobal);
+                checker = g.fileReadGraph(fileName, false, numberOfCitiesGlobal, weightMatrixGlobal);
                 break;
             case 2:
                 cout << "Odległości między miastami:" << endl << endl;
@@ -113,14 +131,7 @@ int main()
                 cout << endl;
                 break;
             case 5:
-                tt.timeTestsForDynamicProggraming(gtt, fr, "18_miast.txt", 18, weightMatrixGlobal);
-                tt.timeTestsForDynamicProggraming(gtt, fr, "19_miast.txt", 19, weightMatrixGlobal);
-                tt.timeTestsForDynamicProggraming(gtt, fr, "20_miast.txt", 20, weightMatrixGlobal);
-                tt.timeTestsForDynamicProggraming(gtt, fr, "21_miast.txt", 21, weightMatrixGlobal);
-                tt.timeTestsForDynamicProggraming(gtt, fr, "22_miast.txt", 22, weightMatrixGlobal);
-                tt.timeTestsForDynamicProggraming(gtt, fr, "23_miast.txt", 23, weightMatrixGlobal);
-                tt.timeTestsForDynamicProggraming(gtt, fr, "24_miast.txt", 24, weightMatrixGlobal);
-                cout << "KONIEC TESTÓW" << endl; 
+                tests();
                 break;
         }
 

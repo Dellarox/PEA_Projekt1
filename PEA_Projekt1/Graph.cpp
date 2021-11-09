@@ -1,18 +1,74 @@
 #include "Graph.h"
 
-void Graph::prepareForDynamicProggramingCountMinimalCost(int numberOfCities, vector<vector<int>>& weightMatrix) {
-	visitedCities = (1 << numberOfCities) - 1; // zmienna pomagaj¹ca sprawdzaæ czy wszystkie miasta zosta³y odwiedzone
-	memory.resize((1 << numberOfCities), vector<int>(numberOfCities)); // rezerwujemy w pamiêci odpowiedni¹ liczbê komórek
-	bestPath.resize((1 << numberOfCities), vector<int>(numberOfCities));
-	numberOfCitiesHelp = numberOfCities;
-	weightMatrixHelp = weightMatrix;
+
+bool Graph::fileReadLine(ifstream& file, int tab[], int size) {
+	string s;
+	getline(file, s);
+
+	if (file.fail() || s.empty())
+		return(false);
+
+	istringstream in_ss(s);
+
+	for (int i = 0; i < size; i++)
+	{
+		in_ss >> tab[i];
+		if (in_ss.fail())
+			return(false);
+	}
+	return(true);
 }
 
-void Graph::prepareForDynamicProggramingFindBestPath(int numberOfCities) {
-	actualPathWeHave.resize(numberOfCities);
-	for (int i = 0; i < (1 << numberOfCities); i++) {
-		for (int j = 0; j < numberOfCities; j++) {
-			if(i<numberOfCities)
+bool Graph::fileReadGraph(string fileName, bool isTest, int& numberOfCities, vector<vector<int>>& weightMatrix) {
+	ifstream file;
+	int tabNumberOfCities[1];
+	file.open(fileName.c_str());
+
+	if (file.is_open())
+	{
+		if (fileReadLine(file, tabNumberOfCities, 1))
+		{
+			weightMatrix.clear();
+			weightMatrix.resize(0);
+
+			numberOfCities = tabNumberOfCities[0]; // przypisanie iloœci miast z pierwszej linijki pliku
+
+			if (!isTest)
+				cout << endl << "Iloœæ miast:" << numberOfCities << endl << endl;
+
+			weightMatrix.resize(numberOfCities, vector<int>(numberOfCities, 0));
+
+			for (int i = 0; i < numberOfCities; i++) {
+				for (int j = 0; j < numberOfCities; j++) {
+					file >> weightMatrix[i][j]; // kolejne dodawanie wartoœci do vectora
+				}
+			}
+			
+		}
+		else
+			cout << "File error - READ INFO" << endl;
+		file.close();
+		return false;
+	}
+	else
+		cout << "File error - OPEN" << endl;
+
+	return false;
+}
+
+void Graph::prepareForDynamicProggramingCountMinimalCost(int numberOfCities, vector<vector<int>> weightMatrix) {
+	numberOfCitiesHelp = numberOfCities;
+	weightMatrixHelp = weightMatrix;
+	visitedCities = (1 << numberOfCitiesHelp) - 1; // zmienna pomagaj¹ca sprawdzaæ czy wszystkie miasta zosta³y odwiedzone
+	memory.resize((1 << numberOfCitiesHelp), vector<int>(numberOfCitiesHelp)); // rezerwujemy w pamiêci odpowiedni¹ liczbê komórek
+	bestPath.resize((1 << numberOfCitiesHelp), vector<int>(numberOfCitiesHelp));
+}
+
+void Graph::prepareForDynamicProggramingFindBestPath() {
+	actualPathWeHave.resize(numberOfCitiesHelp);
+	for (int i = 0; i < (1 << numberOfCitiesHelp); i++) {
+		for (int j = 0; j < numberOfCitiesHelp; j++) {
+			if(i< numberOfCitiesHelp)
 				actualPathWeHave[i] = INT_MAX;
 		}
 	}
