@@ -26,7 +26,7 @@ void showRow(vector<int> weightMatrix) { // funkcja pomocnicza w wyświetlaniu m
     }
 }
 
-void showWeightMatrix(int numberOfCities, vector<vector<int>> weightMatrix) {
+void showWeightMatrix(int numberOfCities, vector<vector<int>> weightMatrix) { // funkcja wyświetlająca macierz
 
     if (numberOfCities == 0) {
         cout << "Nie wczytano struktury lub liczba miast wynosi 0!" << endl;
@@ -40,7 +40,7 @@ void showWeightMatrix(int numberOfCities, vector<vector<int>> weightMatrix) {
     }
 }
 
-void doDP() {
+void doDP() { // metoda odpowiadająca za odpalanie dynamicznego programowania. zrobiona, ponieważ za każdym razem trzeba tworzyć nowy obiekt Graph, a w funkcji main(), w switch-case nie da się tego robić.
     Graph g;
     cout << "Odległości między miastami:" << endl << endl;
     showWeightMatrix(numberOfCitiesGlobal, weightMatrixGlobal);
@@ -53,7 +53,7 @@ void doDP() {
     cout << "0" << endl;
 }
 
-void doBF() {
+void doBF() { // analogicznie jak w przypadku dynamicznego programowania, tylko funkcja odpowiada za uruchomienie brute force'a.
     Graph g;
     cout << "Odległości między miastami:" << endl << endl;
     showWeightMatrix(numberOfCitiesGlobal, weightMatrixGlobal);
@@ -68,7 +68,7 @@ void doBF() {
     cout << "0" << endl;
 }
 
-void tests() {
+void tests() { // funkcja, w której odpalane są wszystkie testy, domyślne zakomentowana, aby nie resetować programu podczas przypadkowego jej uruchomienia.
     /*cout << "Programowanie dynamiczne:" << endl;
     tt.timeTestsForDynamicProggraming(gtt, "18_miast.txt", 18, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "19_miast.txt", 19, weightMatrixGlobal);
@@ -76,14 +76,14 @@ void tests() {
     tt.timeTestsForDynamicProggraming(gtt, "21_miast.txt", 21, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "22_miast.txt", 22, weightMatrixGlobal);
     tt.timeTestsForDynamicProggraming(gtt, "23_miast.txt", 23, weightMatrixGlobal);
-    tt.timeTestsForDynamicProggraming(gtt, "24_miast.txt", 24, weightMatrixGlobal);*/
+    tt.timeTestsForDynamicProggraming(gtt, "24_miast.txt", 24, weightMatrixGlobal);
     cout << "Brute force:" << endl;
     tt.timeTestsForBruteForce(gtt, "8_miast.txt", 8, weightMatrixGlobal, 100);
     tt.timeTestsForBruteForce(gtt, "9_miast.txt", 9, weightMatrixGlobal, 100);
     tt.timeTestsForBruteForce(gtt, "10_miast.txt", 10, weightMatrixGlobal, 100);
     tt.timeTestsForBruteForce(gtt, "11_miast.txt", 11, weightMatrixGlobal, 100);
     tt.timeTestsForBruteForce(gtt, "12_miast.txt", 12, weightMatrixGlobal, 100);
-    tt.timeTestsForBruteForce(gtt, "13_miast.txt", 13, weightMatrixGlobal, 30);
+    tt.timeTestsForBruteForce(gtt, "13_miast.txt", 13, weightMatrixGlobal, 30);*/
     cout << "KONIEC TESTÓW" << endl;
 }
 

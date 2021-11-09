@@ -25,7 +25,7 @@ void TimeTests::timeTestsForDynamicProggraming(Graph g, string fileName, int num
 	cout << "Uœredniony czas testów dla " << numberOfCities << " miast w [s]: " << timeOfTest/100 << "." << endl;
 }
 
-void TimeTests::timeTestsForBruteForce(Graph g, string fileName, int numberOfCities, vector<vector<int>> weightMatrix, int howMuchAttempts) {
+void TimeTests::timeTestsForBruteForce(Graph g, string fileName, int numberOfCities, vector<vector<int>> weightMatrix, int howMuchAttempts) { // dodane jest howMuchAttempts, aby zbadaæ wyniki dla 13 miast, poniewa¿ dla 100 powtórzonych prób wynik by³by bardzo du¿y
 	srand(time(NULL));
 	long long int frequency, start, elapsed;
 	QueryPerformanceFrequency((LARGE_INTEGER*)&frequency);

@@ -18,7 +18,7 @@ class Graph {
 public:
 	vector<vector<int>> memory, bestPath, weightMatrixHelp;
 	vector<int> actualPathWeHave;
-	int visitedCities = 0, helpForActualPath = 0, numberOfCitiesHelp;
+	int allVisitedCities = 0, helpForActualPath = 0, numberOfCitiesHelp;
 
 	//void showWeightMatrix(int& numberOfCities, vector<vector<int>>& weightMatrix);
 
